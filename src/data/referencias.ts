@@ -1,0 +1,156 @@
+export interface Referencia {
+  id: string
+  titulo: string
+  descricao: string
+  tipo: 'normativo' | 'portal' | 'documento'
+  url: string
+  thumbnail?: string
+  tags: string[]
+}
+
+export const referencias: Referencia[] = [
+  {
+    id: 'nob-suas-2012',
+    titulo: 'NOB/SUAS 2012',
+    descricao: 'Norma Operacional Básica do Sistema Único de Assistência Social. Define as funções da Vigilância Socioassistencial.',
+    tipo: 'normativo',
+    url: '/docs/nobsuas_2012.pdf',
+    tags: ['NOB', 'SUAS', 'Vigilância'],
+  },
+  {
+    id: 'nob-rh-suas',
+    titulo: 'NOB-RH/SUAS Anotada e Comentada',
+    descricao: 'Norma Operacional Básica de Recursos Humanos do SUAS com anotações e comentários explicativos.',
+    tipo: 'documento',
+    url: '/docs/NOB-RH_SUAS_Anotada_Comentada.pdf',
+    tags: ['NOB-RH', 'SUAS', 'Anotada', 'Comentada'],
+  },
+  {
+    id: 'loas-anotada',
+    titulo: 'LOAS Anotada',
+    descricao: 'Lei Orgânica da Assistência Social com anotações e comentários explicativos artigo por artigo.',
+    tipo: 'documento',
+    url: '/docs/loasa-anotada.pdf',
+    tags: ['LOAS', 'Anotada', 'Comentada'],
+  },
+  {
+    id: 'pnas-2004',
+    titulo: 'PNAS 2004',
+    descricao: 'Política Nacional de Assistência Social. Estabelece diretrizes e princípios do SUAS.',
+    tipo: 'normativo',
+    url: '/docs/pnas-2004.pdf',
+    tags: ['PNAS', 'Política Nacional', 'SUAS'],
+  },
+  {
+    id: 'cad-suas',
+    titulo: 'CadSUAS',
+    descricao: 'Sistema de cadastro do SUAS. Registra as entidades e unidades de assistência social.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/cadsuas/',
+    tags: ['Cadastro', 'Rede', 'Entidades'],
+  },
+  {
+    id: 'censo-suas',
+    titulo: 'Censo SUAS',
+    descricao: 'Censo anual do Sistema Único de Assistência Social. Dados sobre unidades e serviços.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/snas/vigilancia/censo-suas#',
+    tags: ['Censo', 'Dados', 'Monitoramento'],
+  },
+  {
+    id: 'cecad',
+    titulo: 'CECAD 2.0',
+    descricao: 'Consulta, seleção e extração de informações do Cadastro Único.',
+    tipo: 'portal',
+    url: 'https://cecad.cidadania.gov.br/',
+    tags: ['CECAD', 'Tabulação', 'Extração'],
+  },
+  {
+    id: 'vis-data',
+    titulo: 'VIS DATA',
+    descricao: 'Sistema de monitoramento com indicadores de desenvolvimento social.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/sagi/mi2007/home/index.php',
+    tags: ['VIS DATA', 'Indicadores', 'Monitoramento'],
+  },
+  {
+    id: 'ibge-cidades',
+    titulo: 'IBGE Cidades',
+    descricao: 'Dados demográficos, territoriais e socioeconômicos por município.',
+    tipo: 'portal',
+    url: 'https://cidades.ibge.gov.br/',
+    tags: ['IBGE', 'Demografia', 'Território'],
+  },
+  {
+    id: 'ri-social',
+    titulo: 'R.I Social',
+    descricao: 'Relatórios de informações sociais do Governo Federal para consulta e análise.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.cidadania.gov.br/ri/ri/relatorios/cidadania/',
+    tags: ['R.I Social', 'Relatórios', 'Informações'],
+  },
+  {
+    id: 'encontro-nacional-cadunico-vigilancia',
+    titulo: 'Acesso da Vigilância ao CadÚnico — MDS',
+    descricao: 'Apresentação do Encontro Nacional de Vigilância Socioassistencial sobre o acesso aos dados do Cadastro Único para fins de Vigilância (04/03/2026).',
+    tipo: 'documento',
+    url: '/docs/encontro-nacional-cadunico-vigilancia.pdf',
+    tags: ['CadÚnico', 'Vigilância', 'MDS', 'Encontro Nacional'],
+  },
+  {
+    id: 'encontro-nacional-cadunico-ferramenta',
+    titulo: 'Cadastro Único como Ferramenta de Gestão — MDS',
+    descricao: 'Documento técnico sobre a utilização do Cadastro Único como ferramenta estratégica de gestão da informação para a Vigilância Socioassistencial.',
+    tipo: 'documento',
+    url: '/docs/encontro-nacional-cadunico-ferramenta.pdf',
+    tags: ['Cadastro Único', 'Gestão', 'Informação', 'Vigilância'],
+  },
+  {
+    id: 'encontro-nacional-ferramentas-monitoramento',
+    titulo: 'Ferramentas de Monitoramento SAGICAD — MDS',
+    descricao: 'Apresentação de Saraiva sobre ferramentas de monitoramento da SAGICAD para a Vigilância Socioassistencial (03/03/2026).',
+    tipo: 'documento',
+    url: '/docs/encontro-nacional-ferramentas-monitoramento.pdf',
+    tags: ['SAGICAD', 'Monitoramento', 'MDS', 'Ferramentas'],
+  },
+  {
+    id: 'encontro-nacional-rumos-prontuario',
+    titulo: 'Rumos do Prontuário SUAS — MDS',
+    descricao: 'Apresentação sobre os rumos e diretrizes do Prontuário Eletrônico SUAS para os estados (março/2026).',
+    tipo: 'documento',
+    url: '/docs/encontro-nacional-rumos-prontuario.pdf',
+    tags: ['Prontuário SUAS', 'MDS', 'Estados', 'Encontro Nacional'],
+  },
+  {
+    id: 'prontuario-suas-portal',
+    titulo: 'Prontuário Eletrônico SUAS',
+    descricao: 'Portal oficial do Prontuário Eletrônico do SUAS para acesso ao sistema, manuais e documentação técnica.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/prontuario/',
+    tags: ['Prontuário SUAS', 'Sistema', 'MDS', 'Eletrônico'],
+  },
+  {
+    id: 'cneas-portal',
+    titulo: 'CNEAS — Cadastro Nacional',
+    descricao: 'Cadastro Nacional de Entidades de Assistência Social. Portal oficial para consulta e cadastramento de entidades socioassistenciais.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/cneas/',
+    tags: ['CNEAS', 'Cadastro', 'Entidades', 'MDS'],
+  },
+  {
+    id: 'sisc-portal',
+    titulo: 'SISC — Sistema de Informação',
+    descricao: 'Sistema de Informação do Serviço de Convivência e Fortalecimento de Vínculos. Portal oficial para gestão do SCFV.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/sisc/',
+    tags: ['SISC', 'SCFV', 'Informação', 'MDS'],
+  },
+  {
+    id: 'estrutura-suas-portal',
+    titulo: 'Estrutura SUAS (SIGTV)',
+    descricao: 'Portal oficial do antigo SIGTV para cadastro e gestão da estrutura física e de recursos humanos das unidades do SUAS.',
+    tipo: 'portal',
+    url: 'https://aplicacoes.mds.gov.br/estruturasuas/',
+    tags: ['Estrutura SUAS', 'SIGTV', 'Unidades', 'MDS'],
+  },
+]

@@ -1,0 +1,26 @@
+---
+import type { Membro } from '@/data/equipe'
+import { User } from 'lucide-react'
+import { cardVariants } from '@/lib/card-variants'
+
+const { membro } = Astro.props as { membro: Membro }
+---
+
+<div   class={[cardVariants({ variant: 'default', accent: 'none' }), 'p-5'].join(' ')}>
+  <div class="flex items-start gap-4">
+    <div class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-rose-100 to-rose-50 dark:from-rose-950/40 dark:to-rose-900/20 ring-1 ring-rose-200 dark:ring-rose-800/30">
+      {membro.foto ? (
+        <img src={membro.foto} alt={membro.nome} class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+      ) : (
+        <User className="w-6 h-6 text-rose-500 dark:text-rose-400" />
+      )}
+    </div>
+    <div class="flex-1 min-w-0">
+      <h3 class="text-base font-bold text-slate-800 dark:text-white">{membro.nome}</h3>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{membro.cargo}</p>
+      {membro.formacao && (
+        <p class="text-xs text-slate-400 dark:text-slate-500">{membro.formacao}</p>
+      )}
+    </div>
+  </div>
+</div>

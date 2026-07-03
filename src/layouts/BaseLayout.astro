@@ -1,0 +1,139 @@
+---
+import '@/styles/global.css'
+import { SITE } from '@/lib/constants'
+
+export interface Props {
+  title?: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#004b87" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f172a" />
+    <meta name="description" content={description || SITE.descricao} />
+    <title>{title || SITE.titulo}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={title || SITE.titulo} />
+    <meta property="og:description" content={description || SITE.descricao} />
+    <meta property="og:url" content={SITE.url} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={SITE.url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <script is:inline>
+      (function() {
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (reducedMotion) {
+          document.documentElement.classList.add('reduce-motion')
+        }
+        var theme = localStorage.getItem('vigilancia-theme')
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
+    <style is:inline>
+      .reduce-motion .animate-on-scroll,
+      .reduce-motion .animate-scale,
+      .reduce-motion .animate-slide-left,
+      .reduce-motion .animate-slide-right { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .reduce-motion .animate-on-scroll > *,
+      .reduce-motion .animate-scale > *,
+      .reduce-motion .animate-slide-left > *,
+      .reduce-motion .animate-slide-right > * { transition-delay: 0ms !important; }
+    </style>
+    <style is:inline>
+      section[id] {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 600px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-institucional-blue focus:text-white focus:rounded-lg focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-institucional-blue/50">Pular para o conteúdo principal</a>
+    <div id="top-progress" class="fixed top-0 left-0 h-1 bg-institucional-green z-[60] transition-all duration-150 ease-linear" style="width: 0%"></div>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <button id="theme-toggle" class="fixed top-4 right-4 z-50 px-3 py-2 gap-1.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:scale-105 transition-all duration-300 inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-institucional-blue focus-visible:ring-offset-2" aria-label="Alternar tema">
+      <svg id="theme-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="theme-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span>Tema</span>
+    </button>
+
+    <script>
+      window.addEventListener('scroll', function() {
+        var scrollTop = window.scrollY
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight
+        var progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0
+        var progressEl = document.getElementById('top-progress')
+        if (progressEl) progressEl.style.width = progress + '%'
+      }, { passive: true })
+    </script>
+
+    <script>
+      (function() {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible')
+            }
+          })
+        }, { threshold: 0.06, rootMargin: '0px 0px -50px 0px' })
+
+        var animClasses = ['.animate-on-scroll', '.animate-scale', '.animate-slide-left', '.animate-slide-right']
+        for (var c = 0; c < animClasses.length; c++) {
+          var els = document.querySelectorAll(animClasses[c])
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i]
+            var rect = el.getBoundingClientRect()
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              el.classList.add('visible')
+            } else {
+              observer.observe(el)
+            }
+          }
+        }
+      })()
+    </script>
+
+    <script>
+      (function() {
+        var btn = document.getElementById('theme-toggle')
+
+        function sync() {
+          var isDark = document.documentElement.classList.contains('dark')
+          var sun = document.getElementById('theme-sun')
+          var moon = document.getElementById('theme-moon')
+          if (!sun || !moon) return
+          sun.classList.toggle('hidden', isDark)
+          moon.classList.toggle('hidden', !isDark)
+        }
+
+        sync()
+
+        if (btn) {
+          btn.addEventListener('click', function() {
+            var isDark = document.documentElement.classList.contains('dark')
+            document.documentElement.classList.toggle('dark', !isDark)
+            localStorage.setItem('vigilancia-theme', isDark ? 'light' : 'dark')
+            sync()
+          })
+        }
+      })()
+    </script>
+  </body>
+</html>

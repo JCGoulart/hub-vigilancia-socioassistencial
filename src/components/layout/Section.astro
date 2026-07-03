@@ -1,0 +1,24 @@
+---
+const { id, title, variant = 'default' } = Astro.props
+
+const bgClass: Record<string, string> = {
+  default: 'bg-white dark:bg-slate-900 bg-dot-pattern bg-dot',
+  tintedBlue: 'bg-institucional-lightBlue/20 dark:bg-blue-950/30',
+  tintedGreen: 'bg-institucional-lightGreen/20 dark:bg-green-950/30',
+}
+---
+
+<section {id} class:list={[bgClass[variant] ?? bgClass.default, 'max-w-6xl mx-auto px-4 py-12 rounded-2xl my-6']}>
+  <div class="mb-8">
+    <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white tracking-tight">{title}</h2>
+    <div class="h-1 w-20 rounded-full mt-3 bg-gradient-to-r from-institucional-blue to-institucional-green"></div>
+  </div>
+  {variant !== 'default' && (
+    <div class="mb-8 pointer-events-none" aria-hidden="true">
+      <svg viewBox="0 0 1200 24" preserveAspectRatio="none" class="w-full h-5 fill-current text-institucional-blue/15 dark:text-blue-400/20">
+        <path d="M0,24 C200,0 400,24 600,12 C800,0 1000,24 1200,12 V24 Z"/>
+      </svg>
+    </div>
+  )}
+  <slot />
+</section>

@@ -1,0 +1,28 @@
+---
+import Section from '@/components/layout/Section.astro'
+import PdfViewerModal from '@/components/react/PdfViewerModal'
+import { referencias } from '@/data/referencias'
+
+const { variant } = Astro.props
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '')
+const normativos = referencias.filter(item => item.tipo === 'normativo' || item.tipo === 'documento')
+---
+
+<Section id="referencias" title="Normativos e Documentos" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Base normativa essencial e documentos técnicos de referência do MDS para o trabalho da Vigilância Socioassistencial. Documentos hospedados localmente para consulta e download rápido.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-on-scroll stagger">
+    {normativos.map(item => (
+      <PdfViewerModal
+        client:visible
+        titulo={item.titulo}
+        descricao={item.descricao}
+        pdfUrl={`${base}/${item.url.replace(/^\/+/, '')}`}
+        thumbnail={item.thumbnail ? `${base}/${item.thumbnail.replace(/^\/+/, '')}` : undefined}
+        tipo={item.tipo}
+        tags={item.tags}
+      />
+    ))}
+  </div>
+</Section>

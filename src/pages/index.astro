@@ -1,0 +1,96 @@
+---
+import Header from '@/components/layout/Header.astro'
+import Footer from '@/components/layout/Footer.astro'
+import InicioSection from '@/components/sections/InicioSection.astro'
+import ReferenciasSection from '@/components/sections/ReferenciasSection.astro'
+import PortaisSection from '@/components/sections/PortaisSection.astro'
+import ProdutosSection from '@/components/sections/ProdutosSection.astro'
+import MateriaisSection from '@/components/sections/MateriaisSection.astro'
+import VideosSection from '@/components/sections/VideosSection.astro'
+import EquipeSection from '@/components/sections/EquipeSection.astro'
+import Section from '@/components/layout/Section.astro'
+import { FAQAccordion } from '@/components/react/content/FAQAccordion'
+import AssessoramentosSection from '@/components/sections/AssessoramentosSection.astro'
+import SistemasSuasSection from '@/components/sections/SistemasSuasSection.astro'
+import CapacitacoesSection from '@/components/sections/CapacitacoesSection.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { ScrollToTop } from '@/components/react/layout/ScrollToTop'
+import { SectionIndicator } from '@/components/react/layout/SectionIndicator'
+
+const faqItems = [
+  { id: 'o-que-e', pergunta: 'O que é Vigilância Socioassistencial?', resposta: 'A Vigilância Socioassistencial é uma função essencial do SUAS dedicada a produzir, sistematizar e disseminar informações territorializadas sobre as situações de vulnerabilidade e risco social, apoiando a gestão municipal na tomada de decisão.' },
+  { id: 'quem-faz', pergunta: 'Quem compõe a COOVIG?', resposta: 'A Coordenação Estadual de Vigilância Socioassistencial (COOVIG) integra a Secretaria de Estado de Desenvolvimento Social e Direitos Humanos (SEDSODH) do Governo do Estado do Rio de Janeiro e é composta por uma equipe técnica multidisciplinar.' },
+  { id: 'municipios', pergunta: 'Quantos municípios são atendidos?', resposta: 'A COOVIG atende os 92 municípios do Estado do Rio de Janeiro, oferecendo apoio técnico, capacitações e materiais de referência para as equipes municipais de Vigilância Socioassistencial.' },
+  { id: 'normativos', pergunta: 'Onde encontrar os normativos do SUAS?', resposta: 'Os principais normativos (NOB/SUAS, LOAS, PNAS) estão disponíveis para consulta e download nesta mesma página, na seção Normativos e Documentos. Arquivos em PDF podem ser visualizados diretamente no navegador.' },
+  { id: 'capacitacao', pergunta: 'Como acessar as capacitações?', resposta: 'As gravações das capacitações, oficinas e reuniões técnicas estão disponíveis na seção Vídeos desta página, organizadas por ano. Os vídeos podem ser assistidos diretamente, sem necessidade de download.' },
+]
+---
+
+<BaseLayout>
+  <Header />
+
+  <InicioSection variant="default" />
+  <ReferenciasSection variant="tintedBlue" />
+  <ProdutosSection variant="default" />
+  <AssessoramentosSection variant="tintedBlue" />
+  <PortaisSection variant="tintedGreen" />
+  <SistemasSuasSection variant="default" />
+  <MateriaisSection variant="tintedBlue" />
+  <VideosSection variant="default" />
+  <CapacitacoesSection variant="tintedGreen" />
+  <EquipeSection variant="tintedGreen" />
+
+  <Section id="faq" title="Perguntas Frequentes" variant="default">
+    <FAQAccordion client:visible items={faqItems} />
+  </Section>
+
+  <Footer />
+
+  <ScrollToTop client:idle />
+
+  <SectionIndicator
+    client:idle
+    sections={[
+      { id: 'inicio', label: 'Início' },
+      { id: 'referencias', label: 'Normativos' },
+      { id: 'produtos', label: 'Produtos' },
+      { id: 'assessoramentos', label: 'Assessoramentos' },
+      { id: 'portais', label: 'Portais' },
+      { id: 'sistemas-suas', label: 'Sistemas SUAS' },
+      { id: 'materiais', label: 'Materiais' },
+      { id: 'videos', label: 'Vídeos' },
+      { id: 'capacitacoes', label: 'Capacitações' },
+      { id: 'equipe', label: 'Equipe' },
+      { id: 'faq', label: 'FAQ' },
+    ]}
+  />
+</BaseLayout>
+
+<script>
+  // Highlight active nav item on scroll
+  const sections = document.querySelectorAll('section[id]')
+  const navLinks = document.querySelectorAll('nav a[href^="#"]')
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.remove('bg-institucional-blue', 'text-white', 'dark:bg-blue-600')
+            link.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100',
+              'dark:text-slate-400', 'dark:hover:text-white', 'dark:hover:bg-slate-800')
+          })
+          const active = document.querySelector(`nav a[href="#${entry.target.id}"]`)
+          if (active) {
+            active.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100',
+              'dark:text-slate-400', 'dark:hover:text-white', 'dark:hover:bg-slate-800')
+            active.classList.add('bg-institucional-blue', 'text-white', 'dark:bg-blue-600')
+          }
+        }
+      })
+    },
+    { rootMargin: '-50% 0px -50% 0px' }
+  )
+
+  sections.forEach((section) => observer.observe(section))
+</script>

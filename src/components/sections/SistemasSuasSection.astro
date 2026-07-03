@@ -1,0 +1,50 @@
+---
+import Section from '@/components/layout/Section.astro'
+import PdfViewerModal from '@/components/react/PdfViewerModal'
+import { sistemasSuas } from '@/data/sistemas-suas'
+
+const { variant } = Astro.props
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '')
+
+// Agrupar por sistema
+const porSistema = new Map<string, typeof sistemasSuas>()
+sistemasSuas.forEach(s => {
+  if (!porSistema.has(s.sistema)) porSistema.set(s.sistema, [])
+  porSistema.get(s.sistema)!.push(s)
+})
+---
+
+<Section id="sistemas-suas" title="Sistemas e Manuais SUAS" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Manuais, formulários e guias de preenchimento dos sistemas oficiais do SUAS utilizados no dia a dia da Vigilância Socioassistencial.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-on-scroll stagger">
+    {[...porSistema.entries()].map(([sistema, itens]) => (
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 hover:shadow-lg transition-all duration-300">
+        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">{sistema}</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">
+          {sistema === 'Prontuário Eletrônico SUAS' ? 'Documentação e materiais de apoio para o Prontuário Eletrônico do SUAS.' : ''}
+          {sistema === 'RMA' ? 'Manuais e formulários do Registro Mensal de Atendimento (RMA) para CRAS, CREAS e Centro POP.' : ''}
+          {sistema === 'CNEAS' ? 'Guias e questionários do Cadastro Nacional de Entidades de Assistência Social.' : ''}
+          {sistema === 'SAA' ? 'Materiais de referência do Sistema de Atendimento ao Assistido.' : ''}
+          {sistema === 'SISC' ? 'Manual do Sistema de Informação sobre a Situação da Criança e do Adolescente.' : ''}
+          {sistema === 'CadSUAS' ? 'Manual de utilização do Cadastro Nacional do SUAS.' : ''}
+          {sistema === 'Estrutura SUAS' ? 'Guias e manuais do sistema Estrutura SUAS (antigo SIGTV).' : ''}
+        </p>
+        <div class="space-y-2">
+          {itens.map(item => (
+            <PdfViewerModal
+              client:visible
+              titulo={item.titulo}
+              descricao={item.descricao}
+              pdfUrl={`${base}/${item.url.replace(/^\/+/, '')}`}
+              tipo={item.tipo}
+              data={item.data}
+              tags={item.tags}
+            />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Section>

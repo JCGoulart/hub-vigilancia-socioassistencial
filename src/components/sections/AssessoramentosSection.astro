@@ -1,0 +1,158 @@
+---
+import Section from '@/components/layout/Section.astro'
+import PdfViewerModal from '@/components/react/PdfViewerModal'
+import { assessoramentos } from '@/data/assessoramentos'
+
+const { variant } = Astro.props
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '')
+
+const regionalizados = assessoramentos.filter(item => item.tipo === 'regionalizado')
+const municipais = assessoramentos.filter(item => item.tipo === 'municipal')
+const tematicos = assessoramentos.filter(item => item.tipo === 'temático')
+
+// Agrupar regionalizados por região
+const regionalizadosPorRegiao = new Map<string, typeof regionalizados>()
+regionalizados.forEach(item => {
+  const regiao = item.regiao
+  if (!regionalizadosPorRegiao.has(regiao)) regionalizadosPorRegiao.set(regiao, [])
+  regionalizadosPorRegiao.get(regiao)!.push(item)
+})
+
+// Agrupar municipais por município
+const municipaisPorMunicipio = new Map<string, typeof municipais>()
+municipais.forEach(item => {
+  const mun = item.municipio || item.regiao
+  if (!municipaisPorMunicipio.has(mun)) municipaisPorMunicipio.set(mun, [])
+  municipaisPorMunicipio.get(mun)!.push(item)
+})
+---
+
+<Section id="assessoramentos" title="Assessoramentos Técnicos" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Assessoramentos técnicos realizados pela COOVIG nos municípios fluminenses,
+    organizados por região e temática.
+  </p>
+
+  {assessoramentos.length === 0 && (
+    <div class="text-center py-12 text-slate-400 dark:text-slate-500">
+      <p class="text-lg">Assessoramentos em breve.</p>
+      <p class="text-sm mt-2">A equipe está preparando os materiais.</p>
+    </div>
+  )}
+
+  <div class="space-y-3">
+    <!-- Regionalizados -->
+    <details open class="group border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors list-none select-none">
+        <div class="flex items-center gap-3">
+          <span class="text-lg font-bold text-slate-800 dark:text-white">Assessoramentos Regionalizados</span>
+          <span class="text-xs text-slate-400 dark:text-slate-500">
+            {regionalizados.length} {regionalizados.length === 1 ? 'assessoramento' : 'assessoramentos'}
+          </span>
+        </div>
+        <svg class="w-5 h-5 text-slate-400 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="px-5 pb-5 pt-1 space-y-3">
+        {[...regionalizadosPorRegiao.entries()].map(([regiao, items]) => (
+          <details class="group/regiao border border-slate-100 dark:border-slate-700/50 rounded-lg overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer bg-white dark:bg-slate-800/30 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors list-none select-none text-sm font-semibold text-slate-700 dark:text-slate-300">
+              <span>{regiao}</span>
+              <span class="text-xs text-slate-400">
+                {items.length} {items.length === 1 ? 'item' : 'itens'}
+              </span>
+            </summary>
+            <div class="px-4 pb-4 pt-2">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {items.map(item => (
+                  <PdfViewerModal
+                    titulo={item.titulo}
+                    descricao={item.descricao}
+                    pdfUrl={`${base}${item.url}`}
+                    tipo={item.tipo}
+                    data={item.data}
+                    tags={item.tags}
+                    client:visible
+                  />
+                ))}
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </details>
+
+    <!-- Municipais -->
+    <details class="group border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors list-none select-none">
+        <div class="flex items-center gap-3">
+          <span class="text-lg font-bold text-slate-800 dark:text-white">Assessoramentos Municipais</span>
+          <span class="text-xs text-slate-400 dark:text-slate-500">
+            {municipais.length} {municipais.length === 1 ? 'assessoramento' : 'assessoramentos'}
+          </span>
+        </div>
+        <svg class="w-5 h-5 text-slate-400 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="px-5 pb-5 pt-1 space-y-3">
+        {[...municipaisPorMunicipio.entries()].map(([municipio, items]) => (
+          <details class="group/muni border border-slate-100 dark:border-slate-700/50 rounded-lg overflow-hidden">
+            <summary class="flex items-center justify-between px-4 py-3 cursor-pointer bg-white dark:bg-slate-800/30 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors list-none select-none text-sm font-semibold text-slate-700 dark:text-slate-300">
+              <span>{municipio}</span>
+              <span class="text-xs text-slate-400">
+                {items.length} {items.length === 1 ? 'item' : 'itens'}
+              </span>
+            </summary>
+            <div class="px-4 pb-4 pt-2">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {items.map(item => (
+                  <PdfViewerModal
+                    titulo={item.titulo}
+                    descricao={item.descricao}
+                    pdfUrl={`${base}${item.url}`}
+                    tipo={item.tipo}
+                    data={item.data}
+                    tags={item.tags}
+                    client:visible
+                  />
+                ))}
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </details>
+
+    <!-- Temáticos -->
+    <details class="group border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+      <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors list-none select-none">
+        <div class="flex items-center gap-3">
+          <span class="text-lg font-bold text-slate-800 dark:text-white">Assessoramentos Temáticos</span>
+          <span class="text-xs text-slate-400 dark:text-slate-500">
+            {tematicos.length} {tematicos.length === 1 ? 'assessoramento' : 'assessoramentos'}
+          </span>
+        </div>
+        <svg class="w-5 h-5 text-slate-400 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </summary>
+      <div class="px-5 pb-5 pt-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {tematicos.map(item => (
+            <PdfViewerModal
+              titulo={item.titulo}
+              descricao={item.descricao}
+              pdfUrl={item.url}
+              tipo={item.tipo}
+              data={item.data}
+              tags={item.tags}
+              client:visible
+            />
+          ))}
+        </div>
+      </div>
+    </details>
+  </div>
+</Section>

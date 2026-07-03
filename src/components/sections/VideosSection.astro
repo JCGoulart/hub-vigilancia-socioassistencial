@@ -1,0 +1,58 @@
+---
+import Section from '@/components/layout/Section.astro'
+import VideoModal from '@/components/react/VideoModal'
+import { materiais } from '@/data/materiais'
+
+const { variant } = Astro.props
+const videos = materiais.filter(item => item.tipo === 'video')
+
+const videosPorAno = new Map<number, typeof videos>()
+videos.forEach(v => {
+  const ano = v.ano || 0
+  if (!videosPorAno.has(ano)) videosPorAno.set(ano, [])
+  videosPorAno.get(ano)!.push(v)
+})
+const anosOrdenados = [...videosPorAno.keys()].sort((a, b) => b - a)
+---
+
+<Section id="videos" title="Capacitações em Vídeo" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Gravações de capacitações, oficinas e reuniões técnicas da Vigilância Socioassistencial.
+    Os vídeos podem ser assistidos diretamente na página.
+  </p>
+  {videos.length === 0 && (
+    <div class="text-center py-12 text-slate-400 dark:text-slate-500">
+      <p class="text-lg">Vídeos em breve.</p>
+      <p class="text-sm mt-2">A equipe está preparando as capacitações.</p>
+    </div>
+  )}
+  <div class="space-y-3">
+    {anosOrdenados.map((ano) => (
+      <details open={ano === 2026} class="group border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+        <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors list-none select-none">
+          <div class="flex items-center gap-3">
+            <span class="text-lg font-bold text-slate-800 dark:text-white">{ano}</span>
+            <span class="text-xs text-slate-400 dark:text-slate-500">
+              {videosPorAno.get(ano)!.length} {videosPorAno.get(ano)!.length === 1 ? 'vídeo' : 'vídeos'}
+            </span>
+          </div>
+          <svg
+            class="w-5 h-5 text-slate-400 transition-transform duration-200 group-open:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <div class="px-5 pb-5 pt-1">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {videosPorAno.get(ano)!.map((item) => (
+              <VideoModal item={item} client:visible />
+            ))}
+          </div>
+        </div>
+      </details>
+    ))}
+  </div>
+</Section>

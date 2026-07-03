@@ -1,0 +1,153 @@
+export interface Capacitacao {
+  id: string
+  titulo: string
+  descricao: string
+  tipo: 'curso' | 'seminario' | 'oficina' | 'encontro'
+  formato: 'pdf' | 'youtube' | 'link'
+  url: string
+  embedUrl?: string
+  thumbnail?: string
+  data: string
+  ano?: number
+  modulos?: number
+  tags: string[]
+}
+
+export const capacitacoes: Capacitacao[] = [
+  {
+    id: 'capacitacao-m1',
+    titulo: 'Conhecendo a Vigilância Socioassistencial — Módulo 1',
+    descricao: 'Primeiro módulo do curso introdutório sobre a Vigilância Socioassistencial, abordando conceitos fundamentais, base legal e o papel da vigilância no âmbito do SUAS.',
+    tipo: 'curso',
+    formato: 'pdf',
+    url: '/docs/capacitacao-m1.pdf',
+    data: '2025-01-01',
+    ano: 2025,
+    modulos: 4,
+    tags: ['Curso', 'Conceitos', 'Vigilância', 'SUAS'],
+  },
+  {
+    id: 'capacitacao-m2',
+    titulo: 'Conhecendo a Vigilância Socioassistencial — Módulo 2',
+    descricao: 'Segundo módulo do curso, com foco nos instrumentos e metodologias da Vigilância Socioassistencial, incluindo indicadores, diagnóstico territorial e produção de informação.',
+    tipo: 'curso',
+    formato: 'pdf',
+    url: '/docs/capacitacao-m2.pdf',
+    data: '2025-02-01',
+    ano: 2025,
+    modulos: 4,
+    tags: ['Curso', 'Instrumentos', 'Metodologias', 'Diagnóstico'],
+  },
+  {
+    id: 'capacitacao-m3',
+    titulo: 'Conhecendo a Vigilância Socioassistencial — Módulo 3',
+    descricao: 'Terceiro módulo dedicado ao uso de sistemas de informação do SUAS, abordando coleta, análise e interpretação de dados para a gestão municipal.',
+    tipo: 'curso',
+    formato: 'pdf',
+    url: '/docs/capacitacao-m3.pdf',
+    data: '2025-03-01',
+    ano: 2025,
+    modulos: 4,
+    tags: ['Curso', 'Sistemas', 'Informação', 'Gestão'],
+  },
+  {
+    id: 'capacitacao-m4',
+    titulo: 'Conhecendo a Vigilância Socioassistencial — Módulo 4',
+    descricao: 'Quarto e último módulo do curso, abordando a integração da Vigilância Socioassistencial com as demais funções do SUAS e a elaboração de relatórios técnicos.',
+    tipo: 'curso',
+    formato: 'pdf',
+    url: '/docs/capacitacao-m4.pdf',
+    data: '2025-04-01',
+    ano: 2025,
+    modulos: 4,
+    tags: ['Curso', 'Integração', 'Relatórios', 'Gestão'],
+  },
+  {
+    id: 'capacitasuas-caderno',
+    titulo: 'CAPACITASUAS — Caderno do Aluno',
+    descricao: 'Caderno do aluno do Programa Nacional de Capacitação do SUAS (CAPACITASUAS), com conteúdos formativos para profissionais da assistência social atuantes na Vigilância Socioassistencial.',
+    tipo: 'curso',
+    formato: 'pdf',
+    url: '/docs/capacitasuas-caderno-aluno.pdf',
+    data: '2024-01-01',
+    ano: 2024,
+    tags: ['CAPACITASUAS', 'Capacitação', 'Formação', 'SUAS'],
+  },
+  {
+    id: 'seminario-areal-coovig',
+    titulo: 'III Fórum de Assistência Social em Areal',
+    descricao: 'Apresentação da COOVIG no III Fórum de Assistência Social do município de Areal, com debates sobre a implementação da Vigilância Socioassistencial nos municípios da região.',
+    tipo: 'seminario',
+    formato: 'pdf',
+    url: '/docs/seminario-areal-coovig.pdf',
+    data: '2025-06-01',
+    ano: 2025,
+    tags: ['Fórum', 'Areal', 'COOVIG', 'Implementação'],
+  },
+  {
+    id: 'seminario-agosto-verde',
+    titulo: 'Seminário Agosto Verde',
+    descricao: 'Material do Seminário Agosto Verde, promovido pela SEDSODH, com ênfase na atuação intersetorial e no fortalecimento da Vigilância Socioassistencial como política pública.',
+    tipo: 'seminario',
+    formato: 'pdf',
+    url: '/docs/seminario-agosto-verde.pdf',
+    data: '2025-08-01',
+    ano: 2025,
+    tags: ['Seminário', 'Agosto Verde', 'Intersetorial', 'SEDSODH'],
+  },
+  {
+    id: 'encontro-nacional-cadunico-vigilancia',
+    titulo: 'Encontro Nacional: Acesso da Vigilância ao CadÚnico',
+    descricao: 'Material do encontro nacional sobre a integração entre a Vigilância Socioassistencial e o Cadastro Único, discutindo fluxos de acesso, compartilhamento de dados e indicadores sociais.',
+    tipo: 'encontro',
+    formato: 'pdf',
+    url: '/docs/encontro-nacional-cadunico-vigilancia.pdf',
+    data: '2026-01-01',
+    ano: 2026,
+    tags: ['Encontro Nacional', 'CadÚnico', 'Integração', 'Indicadores'],
+  },
+  {
+    id: 'encontro-nacional-cadunico-ferramenta',
+    titulo: 'Encontro Nacional: Cadastro Único como Ferramenta de Gestão',
+    descricao: 'Apresentação do encontro nacional abordando a utilização do Cadastro Único como ferramenta estratégica para o planejamento e a gestão municipal de programas sociais.',
+    tipo: 'encontro',
+    formato: 'pdf',
+    url: '/docs/encontro-nacional-cadunico-ferramenta.pdf',
+    data: '2026-02-01',
+    ano: 2026,
+    tags: ['Encontro Nacional', 'CadÚnico', 'Gestão', 'Planejamento'],
+  },
+  {
+    id: 'encontro-nacional-ferramentas-monitoramento',
+    titulo: 'Encontro Nacional: Ferramentas de Monitoramento do SAGICAD',
+    descricao: 'Material do encontro nacional sobre as ferramentas de monitoramento disponíveis no SAGICAD, incluindo painéis, relatórios e indicadores para acompanhamento da gestão do Cadastro Único.',
+    tipo: 'encontro',
+    formato: 'pdf',
+    url: '/docs/encontro-nacional-ferramentas-monitoramento.pdf',
+    data: '2026-03-01',
+    ano: 2026,
+    tags: ['Encontro Nacional', 'SAGICAD', 'Monitoramento', 'Indicadores'],
+  },
+  {
+    id: 'encontro-nacional-rumos-prontuario',
+    titulo: 'Encontro Nacional: Rumos do Prontuário SUAS',
+    descricao: 'Apresentação do encontro nacional sobre as perspectivas e diretrizes para o Prontuário SUAS, discutindo aprimoramentos, padronização e integração com os sistemas estaduais.',
+    tipo: 'encontro',
+    formato: 'pdf',
+    url: '/docs/encontro-nacional-rumos-prontuario.pdf',
+    data: '2026-04-01',
+    ano: 2026,
+    tags: ['Encontro Nacional', 'Prontuário SUAS', 'Padronização', 'Sistemas'],
+  },
+  {
+    id: 'seminario-pcf-visitadores',
+    titulo: 'Seminário para Visitadores do PCF',
+    descricao: 'Material do seminário de capacitação voltado aos visitadores do Programa Criança Feliz (PCF), com orientações técnicas sobre registros, indicadores e articulação com a rede socioassistencial.',
+    tipo: 'seminario',
+    formato: 'pdf',
+    url: '/docs/seminario-pcf-visitadores.pdf',
+    data: '2024-06-01',
+    ano: 2024,
+    tags: ['Seminário', 'PCF', 'Visitadores', 'Capacitação'],
+  },
+]

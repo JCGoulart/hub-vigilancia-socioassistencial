@@ -1,0 +1,95 @@
+---
+import Section from '@/components/layout/Section.astro'
+import { CountUp } from '@/components/react/content/CountUp'
+
+const { variant } = Astro.props
+---
+
+<Section id="inicio" title="" variant={variant}>
+  <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-institucional-blue via-blue-700 to-indigo-800 dark:from-blue-950 dark:via-slate-900 dark:to-indigo-950 p-8 md:p-12 lg:p-16 text-white shadow-xl ring-1 ring-white/10">
+
+    <!-- RJ Silhouette watermark (absolute, behind content) -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.04] dark:opacity-[0.06] flex items-center justify-center" aria-hidden="true">
+      <svg viewBox="0 0 400 500" class="w-full h-full max-w-lg" fill="white">
+        <path d="M200,50 C220,45 240,48 255,55 C275,65 280,80 270,95 C265,105 255,110 250,120 C260,140 280,155 285,170 C290,185 280,195 270,205 C265,212 255,218 250,225 C255,240 265,255 270,270 C275,290 260,310 245,325 C235,335 225,340 215,350 C225,360 240,365 250,375 C260,390 250,405 235,415 C220,425 200,430 185,425 C170,420 160,410 155,400 C150,385 155,370 160,360 C165,350 165,340 160,330 C155,315 145,305 140,295 C133,282 128,268 130,255 C132,240 140,230 148,220 C155,210 158,195 155,180 C150,165 145,155 150,140 C158,120 175,105 190,100 C200,95 210,90 215,80 C210,70 200,60 200,50 Z"/>
+        <path d="M140,295 C145,290 150,282 148,275 C146,268 148,262 152,258 C158,250 165,255 162,248 C158,240 150,238 148,230 C145,220 155,215 165,218 C175,220 185,225 195,220 C205,215 210,205 215,200 C220,195 225,200 220,210" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <!-- Decorative orbs for hero impact -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/8 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
+
+    <!-- Content (relative to sit above decorations) -->
+    <div class="relative">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-blue-100 text-xs font-bold uppercase tracking-wider mb-6 ring-1 ring-white/20">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        Coordenação Estadual — COOVIG / SEDSODH
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+        Vigilância
+        <br />
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-white to-emerald-200">
+          Socioassistencial
+        </span>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-blue-100/90 text-lg md:text-xl leading-relaxed max-w-2xl mb-10">
+        Hub institucional da Coordenação Estadual de Vigilância Socioassistencial do Estado do Rio de Janeiro.
+        Centralizamos normativos, materiais técnicos e capacitações para apoiar os 92 municípios fluminenses.
+      </p>
+
+      <!-- Stats Row with CountUp -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-extrabold text-white">
+            <CountUp client:visible end={92} />
+          </div>
+          <div class="text-xs text-blue-200 mt-1 uppercase tracking-wider">Municípios</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-extrabold text-white">
+            <CountUp client:visible end={10} suffix="+" />
+          </div>
+          <div class="text-xs text-blue-200 mt-1 uppercase tracking-wider">Normativos</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-extrabold text-white">
+            <CountUp client:visible end={5} />
+          </div>
+          <div class="text-xs text-blue-200 mt-1 uppercase tracking-wider">Produtos</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-extrabold text-white">
+            <CountUp client:visible end={2026} />
+          </div>
+          <div class="text-xs text-blue-200 mt-1 uppercase tracking-wider">Atualizado</div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="flex flex-wrap gap-4">
+        <a href="#referencias" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-institucional-blue font-bold text-base hover:bg-blue-50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 shadow-md no-underline">
+          Explorar Normativos
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="#produtos" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 text-white font-semibold text-base hover:bg-white/20 hover:-translate-y-0.5 transition-all duration-200 ring-1 ring-white/20 no-underline">
+          Ver Produtos
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="mt-12 flex justify-center">
+        <div class="flex flex-col items-center gap-2 animate-bounce">
+          <span class="text-xs text-blue-200 uppercase tracking-widest">Rolar</span>
+          <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>

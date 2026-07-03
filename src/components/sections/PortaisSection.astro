@@ -1,0 +1,19 @@
+---
+import Section from '@/components/layout/Section.astro'
+import ReferenceCard from '@/components/cards/ReferenceCard.astro'
+import { referencias } from '@/data/referencias'
+
+const { variant } = Astro.props
+const portais = referencias.filter(item => item.tipo === 'portal')
+---
+
+<Section id="portais" title="Sistemas e Portais" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Sistemas e portais oficiais do SUAS utilizados no dia a dia da Vigilância Socioassistencial. Links externos — abrem em nova aba. Manuais e formulários destes sistemas estão disponíveis na seção Sistemas SUAS.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-on-scroll stagger">
+    {portais.map(item => (
+      <ReferenceCard item={item} />
+    ))}
+  </div>
+</Section>

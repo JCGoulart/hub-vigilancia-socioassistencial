@@ -1,0 +1,41 @@
+---
+import Section from '@/components/layout/Section.astro'
+import MaterialCard from '@/components/cards/MaterialCard.astro'
+import PdfViewerModal from '@/components/react/PdfViewerModal'
+import { materiais } from '@/data/materiais'
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '')
+const { variant } = Astro.props
+const materiaisNaoVideo = materiais.filter(item => item.tipo !== 'video')
+---
+
+<Section id="materiais" title="Materiais" variant={variant}>
+  <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-3xl">
+    Produções da equipe da COOVIG: cadernos técnicos, orientações, seminários e materiais de apoio para as equipes municipais de Vigilância Socioassistencial.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-on-scroll stagger">
+    {materiaisNaoVideo.map((item) => (
+      item.tipo === 'pdf' ? (
+        <PdfViewerModal
+          client:visible
+          titulo={item.titulo}
+          descricao={item.descricao}
+          pdfUrl={`${base}/${item.url.replace(/^\/+/, '')}`}
+          thumbnail={item.thumbnail ? `${base}/${item.thumbnail.replace(/^\/+/, '')}` : undefined}
+          tipo={item.tipo}
+          data={item.data}
+          tags={item.tags}
+        />
+      ) : (
+        <MaterialCard item={item} />
+      )
+    ))}
+  </div>
+  {materiaisNaoVideo.length === 0 && (
+    <div class="text-center py-12 text-slate-400 dark:text-slate-500">
+      <p class="text-lg">Materiais em breve.</p>
+      <p class="text-sm mt-2">A equipe está preparando os conteúdos.</p>
+    </div>
+  )}
+
+</Section>
