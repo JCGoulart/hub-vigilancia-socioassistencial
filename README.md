@@ -100,7 +100,7 @@ Este projeto está licenciado sob a **[Creative Commons Attribution-ShareAlike 4
 Secretaria de Estado de Desenvolvimento Social e Direitos Humanos (SEDSODH)  
 Coordenação Estadual de Vigilância Socioassistencial (COOVIG)
 
-**Secretário:** Anderson Coelho  
+**Secretário:** Patrícia Tavares  
 **Subsecretário de Gestão do SUAS:** Felippe de Souza Rodrigues  
 **Superintendente de Gestão do SUAS:** Adriana Alves Pinto de Castro  
 **Coordenador de Vigilância Socioassistencial:** Matheus Lopes
