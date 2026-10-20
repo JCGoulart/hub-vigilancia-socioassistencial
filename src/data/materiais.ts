@@ -10,9 +10,21 @@ export interface Material {
   data: string
   ano?: number
   tags: string[]
+  destaque?: boolean
 }
 
 export const materiais: Material[] = [
+  {
+    id: 'caderno-orientacoes-vigilancia-rj',
+    titulo: 'Caderno de Orientações — Vigilância Socioassistencial RJ',
+    descricao: 'Caderno técnico estadual com orientações para a estruturação da Vigilância Socioassistencial no Rio de Janeiro, com foco no módulo de Diagnóstico Socioterritorial.',
+    tipo: 'pdf',
+    origem: 'repo',
+    url: '/docs/caderno-orientacoes-vigilancia-rj.pdf',
+    data: '2026-10-19',
+    tags: ['Caderno', 'Orientações', 'Vigilância', 'Diagnóstico Socioterritorial', 'RJ'],
+    destaque: true,
+  },
   {
     id: 'caderno-orientacoes-002',
     titulo: 'Caderno de Orientações 002 — Vigilância',
